@@ -1,11 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using MelonLoader;
-using HarmonyLib;
 using BTKUILib;
 using BTKUILib.UIObjects;
 using ABI_RC.Core.InteractionSystem;
 using ABI_RC.Core.Savior;
-using System;
 
 [assembly: MelonGame("Alpha Blend Interactive", "ChilloutVR")]
 [assembly: MelonInfo(typeof(RotateMod.rotateMod), "Rotate Mod", "1.0.0", "Exterrata")]
@@ -21,7 +19,6 @@ namespace RotateMod
         private bool _initialized = false;
 
         private bool _mode = false;
-
 
         private float _speed = 1f;
 
@@ -93,17 +90,17 @@ namespace RotateMod
             button = Category.AddButton("Reset Rotation", "idk", "Reset Rotation");
             button.OnPress += RotationReset;
 
-            button = Category.AddButton("Horizon Center", "idk", "Rotates Tracking So Current Facing Direction Looks At The Horizon. \n VR Only");
+            button = Category.AddButton("Horizon Center", "idk", "Rotates Tracking So Current Facing Direction Looks At The Horizon. VR Only");
             button.OnPress += HorizonCenter;
 
-            button = Category.AddButton("Toggle Mode (Player)", "idk", "Toggle Between Player Rotation And Tracking Rotation. \n VR Only");
+            button = Category.AddButton("Toggle Mode (Player)", "idk", "Toggle Between Player Rotation And Tracking Rotation. VR Only");
             button.OnPress += Mode;
             _modeButton = button;
         }
         
         void SpeedUp() { _speed += 0.5f; _speedButton.ButtonText = "Reset Speed (" + _speed + ")"; }
         void SpeedDown() { _speed -= 0.5f; _speedButton.ButtonText = "Reset Speed (" + _speed + ")"; }
-        void SpeedReset() { _speed = 1f; }
+        void SpeedReset() { _speed = 1f; _speedButton.ButtonText = "Reset Speed (1)";  }
         void RotationReset() { _localPlayer.transform.rotation = Quaternion.identity; _cameraRig.transform.rotation = Quaternion.identity; }
         void Mode() { _mode = !_mode; if (_mode) _modeButton.ButtonText = "Toggle Mode (Tracking)"; else _modeButton.ButtonText = "Toggle Mode (Player)"; }
         void RXP() { if (MetaPort.Instance.isUsingVr && _mode) _cameraRig.Rotate(new Vector3(_speed, 0, 0)); else _localPlayer.Rotate(new Vector3(_speed, 0, 0)); }
@@ -114,6 +111,8 @@ namespace RotateMod
         void RZM() { if (MetaPort.Instance.isUsingVr && _mode) _cameraRig.Rotate(new Vector3(0, 0, -_speed)); else _localPlayer.Rotate(new Vector3(0, 0, -_speed)); }
         void HorizonCenter()
         {
+            _localPlayer.transform.rotation = Quaternion.identity;
+            _cameraRig.transform.rotation = Quaternion.identity;
             _camera.rotation.ToAxisAngle(out Vector3 axis, out float angle);
             _cameraRig.rotation = Quaternion.AxisAngle(axis, -angle);
         }
