@@ -4,6 +4,7 @@ using BTKUILib;
 using BTKUILib.UIObjects;
 using ABI_RC.Core.InteractionSystem;
 using ABI_RC.Core.Savior;
+using System.Reflection;
 
 [assembly: MelonGame("Alpha Blend Interactive", "ChilloutVR")]
 [assembly: MelonInfo(typeof(RotateMod.rotateMod), "Rotate Mod", "1.0.0", "Exterrata")]
@@ -27,6 +28,7 @@ namespace RotateMod
 
         public override void OnApplicationStart()
         {
+            loadAssets();
             QuickMenuAPI.OnMenuRegenerate += Setup;
         }
 
@@ -43,57 +45,57 @@ namespace RotateMod
             if (_initialized) return;
             _initialized = true;
 
-            var page = new Page("RotateMod", "Rotate Mod", true);
+            var page = new Page("RotateMod", "Rotate Mod", true, "Cords");
             page.MenuTitle = "Rotate Mod";
             page.MenuSubtitle = "You Should Rotate Yourself Now";
 
 
             var Category = page.AddCategory("Rotate X");
 
-            var button = Category.AddButton("X+", "idk", "X+");
+            var button = Category.AddButton("X+", "Red-Plus", "X+");
             button.OnPress += RXP;
 
-            button = Category.AddButton("X-", "idk", "X-");
+            button = Category.AddButton("X-", "Red-Minus", "X-");
             button.OnPress += RXM;
 
 
             Category = page.AddCategory("Rotate Y");
 
-            button = Category.AddButton("Y+", "idk", "Y+");
+            button = Category.AddButton("Y+", "Green-Plus", "Y+");
             button.OnPress += RYP;
 
-            button = Category.AddButton("Y-", "idk", "Y-");
+            button = Category.AddButton("Y-", "Green-Minus", "Y-");
             button.OnPress += RYM;
 
 
             Category = page.AddCategory("Rotate Z");
 
-            button = Category.AddButton("Z+", "idk", "Z+");
+            button = Category.AddButton("Z+", "Blue-Plus", "Z+");
             button.OnPress += RZP;
 
-            button = Category.AddButton("Z-", "idk", "Z-");
+            button = Category.AddButton("Z-", "Blue-Minus", "Z-");
             button.OnPress += RZM;
 
 
             Category = page.AddCategory("Settings");
 
-            button = Category.AddButton("Increase Speed", "idk", "Increase Rotation Speed");
+            button = Category.AddButton("Increase Speed", "SpeedPlus", "Increase Rotation Speed");
             button.OnPress += SpeedUp;
 
-            button = Category.AddButton("Decease Speed", "idk", "decrease Rotation Speed");
+            button = Category.AddButton("Decease Speed", "SpeedMinus", "decrease Rotation Speed");
             button.OnPress += SpeedDown;
 
-            button = Category.AddButton("Reset Speed (1)", "idk", "Reset Rotation Speed");
+            button = Category.AddButton("Reset Speed (1)", "ResetSpeed", "Reset Rotation Speed");
             button.OnPress += SpeedReset;
             _speedButton = button;
 
-            button = Category.AddButton("Reset Rotation", "idk", "Reset Rotation");
+            button = Category.AddButton("Reset Rotation", "ResetRotation", "Reset Rotation");
             button.OnPress += RotationReset;
 
-            button = Category.AddButton("Horizon Center", "idk", "Rotates Tracking So Current Facing Direction Looks At The Horizon. VR Only");
+            button = Category.AddButton("Horizon Center", "Horizon", "Rotates Tracking So Current Facing Direction Looks At The Horizon. VR Only");
             button.OnPress += HorizonCenter;
 
-            button = Category.AddButton("Toggle Mode (Player)", "idk", "Toggle Between Player Rotation And Tracking Rotation. VR Only");
+            button = Category.AddButton("Toggle Mode (Player)", "Tracking", "Toggle Between Player Rotation And Tracking Rotation. VR Only");
             button.OnPress += Mode;
             _modeButton = button;
         }
@@ -116,5 +118,23 @@ namespace RotateMod
             _camera.rotation.ToAxisAngle(out Vector3 axis, out float angle);
             _cameraRig.rotation = Quaternion.AxisAngle(axis, -angle);
         }
+
+        public static void loadAssets()
+        {
+            QuickMenuAPI.PrepareIcon("RotateMod", "Red-Minus", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.Red-Minus.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "Red-Plus", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.Red-Plus.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "Green-Minus", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.Green-Minus.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "Green-Plus", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.Green-Plus.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "Blue-Minus", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.Blue-Minus.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "Blue-Plus", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.Blue-Plus.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "Cords", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.Cords.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "Horizon", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.Horizon.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "ResetRotation", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.ResetRotation.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "ResetSpeed", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.ResetSpeed.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "SpeedMinus", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.SpeedMinus.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "SpeedPlus", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.SpeedPlus.png"));
+            QuickMenuAPI.PrepareIcon("RotateMod", "Tracking", Assembly.GetExecutingAssembly().GetManifestResourceStream("RotateMod.Icons.Tracking.png"));
+        }
+
     }
 }
