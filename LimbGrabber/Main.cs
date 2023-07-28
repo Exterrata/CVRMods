@@ -12,7 +12,7 @@ using System.Linq;
 [assembly: MelonGame("Alpha Blend Interactive", "ChilloutVR")]
 [assembly: MelonInfo(typeof(Koneko.LimbGrabber), "CVRLimbsGrabber", "1.1.1", "Exterrata")]
 [assembly: MelonAdditionalDependencies("DesktopVRIK")]
-[assembly: MelonOptionalDependencies("PlayerRagdollMod", "BTKUILib")]
+[assembly: MelonOptionalDependencies("ml_prm", "BTKUILib")]
 [assembly: HarmonyDontPatchAll]
 
 namespace Koneko;
@@ -174,7 +174,7 @@ public class LimbGrabber : MelonMod
 
     public static void Grab(GrabberComponent grabber)
     {
-        if (!Enabled.Value || BodySystem.isCalibrating) return;
+        if (!Enabled.Value || !Initialized || BodySystem.isCalibrating) return;
         if (Debug.Value) MelonLogger.Msg("grab was detected");
         int closest = 0;
         float distance = float.PositiveInfinity;
@@ -219,7 +219,7 @@ public class LimbGrabber : MelonMod
     {
         int limb = grabber.Limb;
         if (limb == -1) return;
-        if (limb == 6 || !EnablePose.Value)
+        if (limb == 6 || !EnablePose.Value || !Initialized)
         {
             Release(grabber);
             return;

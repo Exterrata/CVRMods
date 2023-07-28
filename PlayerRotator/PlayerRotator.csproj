@@ -6,6 +6,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\Blue-Minus.png" />
+    <None Remove="Icons\Blue-Plus.png" />
+    <None Remove="Icons\Cords.png" />
+    <None Remove="Icons\Green-Minus.png" />
+    <None Remove="Icons\Green-Plus.png" />
+    <None Remove="Icons\Horizon.png" />
+    <None Remove="Icons\Red-Minus.png" />
+    <None Remove="Icons\Red-Plus.png" />
+    <None Remove="Icons\ResetRotation.png" />
+    <None Remove="Icons\ResetSpeed.png" />
+    <None Remove="Icons\SpeedMinus.png" />
+    <None Remove="Icons\SpeedPlus.png" />
+    <None Remove="Icons\Tracking.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\Blue-Minus.png" />
+    <EmbeddedResource Include="Icons\Blue-Plus.png" />
+    <EmbeddedResource Include="Icons\Cords.png" />
+    <EmbeddedResource Include="Icons\Green-Minus.png" />
+    <EmbeddedResource Include="Icons\Green-Plus.png" />
+    <EmbeddedResource Include="Icons\Horizon.png" />
+    <EmbeddedResource Include="Icons\Red-Minus.png" />
+    <EmbeddedResource Include="Icons\Red-Plus.png" />
+    <EmbeddedResource Include="Icons\ResetRotation.png" />
+    <EmbeddedResource Include="Icons\ResetSpeed.png" />
+    <EmbeddedResource Include="Icons\SpeedMinus.png" />
+    <EmbeddedResource Include="Icons\SpeedPlus.png" />
+    <EmbeddedResource Include="Icons\Tracking.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ChilloutVR\MelonLoader\net35\0Harmony.dll</HintPath>
     </Reference>

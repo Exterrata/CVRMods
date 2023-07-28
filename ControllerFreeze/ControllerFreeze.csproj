@@ -15,9 +15,6 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>..\..\test mod\test mod\bin\Debug\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="BTKUILib">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ChilloutVR\Mods\BTKUILib.dll</HintPath>
-    </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ChilloutVR\ChilloutVR_Data\Managed\Il2Cppmscorlib.dll</HintPath>
     </Reference>
