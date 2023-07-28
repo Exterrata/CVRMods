@@ -1,0 +1,83 @@
+<Project>
+
+    <PropertyGroup>
+        <!-- Put your Chillout vr path in a new environnment variable CVRPATH in Windows -->
+        <OutputPath>$(MsBuildThisFileDirectory)/.Builds</OutputPath>
+        <LangVersion>latest</LangVersion>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateDependencyFile>false</GenerateDependencyFile>
+        <!-- Required for NStrip to work -->
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>embedded</DebugType>
+        <Optimize>true</Optimize>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <!-- Hack! MelonLoader is locking the Mod files, this way I can build and output the mod dll with the game running -->
+    <Target Name="DeleteOutputDLLIfExists" BeforeTargets="BeforeBuild">
+        <Exec Command="if exist &quot;$(OutputPath)$(TargetName).dll&quot; del /F /Q &quot;$(OutputPath)$(TargetName).dll&quot;" />
+    </Target>
+
+    <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>$(CVRPATH)\MelonLoader\net35\0Harmony.dll</HintPath>
+        </Reference>
+		<Reference Include="MelonLoader">
+            <HintPath>$(CVRPATH)\MelonLoader\net35\MelonLoader.dll</HintPath>
+        </Reference>
+		<Reference Include="Assembly-CSharp">
+            <HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\Assembly-CSharp.dll</HintPath>
+        </Reference>
+		<Reference Include="Assembly-CSharp-firstpass">
+            <HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+	    <Reference Include="Il2Cppmscorlib">
+            <HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\Il2Cppmscorlib.dll</HintPath>
+        </Reference>
+	    <Reference Include="UnhollowerBaseLib">
+            <HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\UnhollowerBaseLib.dll</HintPath>
+        </Reference>
+	    <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+		<Reference Include="UnityEngine">
+            <HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\UnityEngine.dll</HintPath>
+        </Reference>
+	    <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+		<Reference Include="UnityEngine.AnimationModule">
+            <HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+        </Reference>
+	    <Reference Include="UnityEngine.PhysicsModule">
+            <HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+        </Reference>
+		<Reference Include="SteamVR">
+			<HintPath>$(CVRPATH)\ChilloutVR_Data\Managed\SteamVR.dll</HintPath>
+		</Reference>
+		<Reference Include="ml_prm">
+			<HintPath>$(CVRPATH)\Mods\ml_prm.dll</HintPath>
+		</Reference>
+		<Reference Include="BTKUILib">
+			<HintPath>$(CVRPATH)\Mods\BTKUILib.dll</HintPath>
+		</Reference>
+    </ItemGroup>
+
+</Project>
