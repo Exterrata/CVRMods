@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
+using MelonLoader;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 namespace Koneko;
 internal class Patches
@@ -19,11 +21,11 @@ internal class Patches
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(Valve.VR.SteamVR_Behaviour_Pose), "SteamVR_Behaviour_Pose_OnUpdate")]
-    public static void FreezeControllers(Transform ___origin, int ___deviceIndex)
+    public static void FreezeControllers(SteamVR_Behaviour_Pose __instance, int ___deviceIndex)
     {
         if (!controllers.ContainsKey(___deviceIndex)) {
             var controller = new Controller();
-            controller.transform = ___origin;
+            controller.transform = __instance.transform;
             controllers.Add(___deviceIndex, controller);
         }
 

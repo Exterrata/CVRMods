@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 [assembly: MelonGame("Alpha Blend Interactive", "ChilloutVR")]
-[assembly: MelonInfo(typeof(Koneko.JoinMe), "JoinMe", "1.0.0", "Exterrata")]
+[assembly: MelonInfo(typeof(Koneko.JoinMe), "JoinMe", "1.1.0", "Exterrata")]
 [assembly: MelonOptionalDependencies("BTKUILib")]
 [assembly: HarmonyDontPatchAll]
 
